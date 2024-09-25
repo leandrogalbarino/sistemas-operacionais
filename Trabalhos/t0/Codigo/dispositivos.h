@@ -5,6 +5,7 @@
 
 #ifndef DISPOSITIVOS_H
 #define DISPOSITIVOS_H
+#include "err.h"
 
 typedef enum {
   D_TERM_A_TECLADO        =  0,
@@ -25,8 +26,18 @@ typedef enum {
   D_TERM_D_TELA_OK        = 15,
   D_RELOGIO_INSTRUCOES    = 16,
   D_RELOGIO_REAL          = 17,
+  D_ADIVINHAR             = 18,
   N_DISPOSITIVOS
 } dispositivo_id_t;
+
+
+typedef struct {
+    int ultimo_valor_aleatorio;
+} aleatorio_t;
+
+// Função que será usada para leitura do dispositivo aleatório
+err_t random_leitura(void *disp, int id, int *pvalor); 
+
 
 #endif // DISPOSITIVOS_H
 

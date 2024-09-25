@@ -27,7 +27,9 @@ typedef struct {
   console_t *console;
   es_t *es;
   controle_t *controle;
+  aleatorio_t *aleatorio;
 } hardware_t;
+
 
 static void cria_hardware(hardware_t *hw)
 {
@@ -58,6 +60,8 @@ static void cria_hardware(hardware_t *hw)
   // lê relógio virtual, relógio real
   es_registra_dispositivo(hw->es, D_RELOGIO_INSTRUCOES, hw->relogio, 0, relogio_leitura, NULL);
   es_registra_dispositivo(hw->es, D_RELOGIO_REAL      , hw->relogio, 1, relogio_leitura, NULL);
+  // novo dispositivo 
+  es_registra_dispositivo(hw->es, D_ADIVINHAR, hw->aleatorio, 0, random_leitura, NULL);
 
   // cria a unidade de execução e inicializa com a memória e o controlador de E/S
   hw->cpu = cpu_cria(hw->mem, hw->es);

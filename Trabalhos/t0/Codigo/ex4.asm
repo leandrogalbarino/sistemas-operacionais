@@ -7,6 +7,9 @@ teclOK   define 1
 tela     define 2
 telaOK   define 3
 
+NUM_ALERT DEFINE 18
+
+
          cargi str1
          chama impstr
 laco     chama lechute
