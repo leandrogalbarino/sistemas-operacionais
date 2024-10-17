@@ -30,6 +30,7 @@ controle_t *controle_cria(cpu_t *cpu, console_t *console, relogio_t *relogio)
   self->cpu = cpu;
   self->console = console;
   self->relogio = relogio;
+
   self->estado = parado;
 
   return self;
@@ -57,6 +58,7 @@ void controle_laco(controle_t *self)
   } while (self->estado != fim);
 
   console_printf("Fim da execução.");
+
   console_printf("relógio: %d\n", relogio_agora(self->relogio));
 }
  

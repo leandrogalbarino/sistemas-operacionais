@@ -4,7 +4,7 @@ teclOK   define 1
 tela     define 2
 telaOK   define 3
 
-NUM_ALERT DEFINE 18
+NUM_ALEAT DEFINE 18
 
 ; Início do programa
          cargi str1
@@ -12,10 +12,11 @@ NUM_ALERT DEFINE 18
 
          ; Gera número aleatório
          chama geranumero    ; Chama função que gera o número aleatório
-         armm chute          ; Armazena o número gerado em 'chute'
+         armm aleatorio          ; Armazena o número gerado
          
          ; Calcula o valor secreto
-         cargm chute
+         cargm aleatorio
+         RESTO 26              ; Aplica o módulo 26 para limitar o número a [0, 25]
          SOMA ch_a            ; Adiciona o valor de 'a' (97)
          armm segredo        ; Armazena o resultado como o segredo
 
@@ -91,15 +92,17 @@ msg_chut valor 10
          valor "'"
 chute    espaco 1
          string "' "
+
 segredo  espaco 1  ; Espaço para armazenar o caractere secreto
 
 ; Função para gerar um número aleatório de 0 a 25
-geranumero espaco 1
-         ; Gera um número aleatório entre 0 e 25
-         LE NUM_ALERT        ; Lê um número aleatório (de 0 a 25)
-         ESCR 2              ; Exibe o número gerado
-         armm chute           ; Armazena o número gerado em 'chute'
-         ret geranumero       ; Retorna para a chamada anterior
+geranumero espaco 4
+         ; Gera um número aleatório
+         LE NUM_ALEAT        ; Lê um número aleatório
+        ; ESCR 2              ; Exibe o número gerado
+         armm chute          ; Armazena o número gerado em 'chute'
+         ret geranumero      ; Retorna para a chamada anterior
+
 
 impstr   espaco 1
          trax

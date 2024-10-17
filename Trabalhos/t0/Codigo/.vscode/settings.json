@@ -3,6 +3,8 @@
         "*.rmd": "markdown",
         "stdbool.h": "c",
         "stdlib.h": "c",
-        "err.h": "c"
+        "err.h": "c",
+        "random.h": "c",
+        "terminal.h": "c"
     }
 }

@@ -12,9 +12,11 @@
 #include "terminal.h"
 #include "es.h"
 #include "dispositivos.h"
+#include "random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // constantes
 #define MEM_TAM 2000        // tamanho da memória principal
@@ -27,18 +29,19 @@ typedef struct {
   console_t *console;
   es_t *es;
   controle_t *controle;
-  aleatorio_t *aleatorio;
 } hardware_t;
 
 
 static void cria_hardware(hardware_t *hw)
 {
-  // cria a memória
+  srand(time(0));
+
   hw->mem = mem_cria(MEM_TAM);
 
   // cria dispositivos de E/S
   hw->console = console_cria();
   hw->relogio = relogio_cria();
+
 
   // cria o controlador de E/S e registra os dispositivos
   //   por exemplo, o dispositivo 8 do controlador de E/S (e da CPU) será o
@@ -61,7 +64,7 @@ static void cria_hardware(hardware_t *hw)
   es_registra_dispositivo(hw->es, D_RELOGIO_INSTRUCOES, hw->relogio, 0, relogio_leitura, NULL);
   es_registra_dispositivo(hw->es, D_RELOGIO_REAL      , hw->relogio, 1, relogio_leitura, NULL);
   // novo dispositivo 
-  es_registra_dispositivo(hw->es, D_ADIVINHAR, hw->aleatorio, 0, random_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_ALEATORIO, NULL, 0, random_leitura, NULL);
 
   // cria a unidade de execução e inicializa com a memória e o controlador de E/S
   hw->cpu = cpu_cria(hw->mem, hw->es);
