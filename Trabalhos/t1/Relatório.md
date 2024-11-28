@@ -13,10 +13,10 @@
 
 O objetivo deste experimento é compreender o funcionamento de um sistema operacional por meio da implementação prática de uma simulação de seus principais componentes e do hardware associado. Este processo visa explorar as principais funcionalidades e componentes que garantem o funcionamento correto de um sistema operacional, incluindo:
 
-* Gerenciamento de processos, desde a criação até a remoção;  
-* Escalonamento de processos, utilizando diferentes algoritmos para simular cenários reais;  
-* Controle de estados de processos (pronto, executando, bloqueado, etc.);  
-* Gerenciamento de filas e tabelas de processos de forma eficiente;  
+* Gerenciamento de processos, desde a criação até a remoção.  
+* Escalonamento de processos, utilizando diferentes algoritmos para simular cenários reais.  
+* Controle de estados de processos (pronto, executando, bloqueado, etc.).  
+* Gerenciamento de filas e tabelas de processos de forma eficiente.  
 * Monitoramento de métricas operacionais e desempenho do sistema.
 
 Essa abordagem experimental permite uma visão prática e detalhada das decisões e desafios envolvidos na implementação de um sistema operacional funcional, preparando para uma melhor compreensão de conceitos teóricos e aplicação em cenários reais.
@@ -44,21 +44,21 @@ A implementação do sistema operacional (SO) foi feita majoritariamente na ling
 
    **Filas e Tabela de Processos:**
 
-* Filas de Processos: Utilizadas para gerenciar os processos em diferentes estados. A fila de "pronto" contém os processos que aguardam pela CPU, enquanto a fila de "bloqueado" contém os processos que estão esperando por eventos como a conclusão de E/S.  
-* Tabela de Processos: Armazena informações detalhadas sobre cada processo, como o seu ID, o estado atual, o tempo de execução, e o tempo acumulado em cada estado (pronto, executando, bloqueado).
+* Filas de Processos Prontos: Contém os processos que aguardam execução. Eles podem ser inseridos na fila quando o processo é criado ou quando é desbloqueado.  
+* **Tabela de Processos:** Armazena todos os processos, independentemente do estado em que se encontram. Quando um processo é criado, ele é adicionado na tabela de processos.
 
 **Estados de Processos:**
 
 * Pronto: O processo está pronto para ser executado assim que a CPU estiver disponível.  
 * Executando: O processo está atualmente em execução pela CPU.  
 * Bloqueado: O processo não pode continuar a execução até que uma condição externa seja atendida (como a conclusão de uma operação de E/S).  
-* Morto: O processo terminou sua execução e foi removido da tabela de processos.
+* Morto: O processo terminou sua execução e não pode mais ser alterado.
 
   **Manipulação de Processos:**
 
-* Criação: A criação de um novo processo envolve a alocação de recursos e a inserção do processo na fila de "pronto", onde aguardará sua vez para ser executado.  
-* Escalonamento: A função de escalonamento seleciona qual processo será executado a seguir. Foram implementados diferentes algoritmos de escalonamento, como Round Robin e Escalonador Circular com Prioridade, para otimizar o uso da CPU.  
-* Bloqueio e Desbloqueio: O processo pode ser bloqueado quando aguarda um evento externo. O desbloqueio ocorre assim que o evento ocorre, movendo o processo de volta para a fila de "pronto".
+* Criação: A criação de um novo processo envolve a alocação, a inicialização e a inserção do processo tanto na tabela de processos quanto na fila de processos prontos, onde aguardará sua vez para ser executado.  
+* Escalonamento: A função de escalonamento seleciona o processo que será executado a seguir. Foram implementados diferentes algoritmos de escalonamento, como o Escalonador Simples (sequencial), Round Robin e o Escalonador Circular com Prioridade.  
+* Bloqueio e Desbloqueio: O processo pode ser bloqueado quando aguarda um evento externo. O desbloqueio ocorre assim que o evento ocorre, movendo o processo de volta para a fila de processos prontos.
 
 
   
@@ -69,19 +69,13 @@ A implementação do sistema operacional (SO) foi feita majoritariamente na ling
   **Tipos de Bloqueio:**
 
 * Bloqueio por E/S: O processo fica bloqueado enquanto espera pela conclusão de uma operação de entrada/saída.  
-* Bloqueio por Espera: O processo fica bloqueado, enquanto o processo solicitado não estiver morto.
-
-  **Escalonamento:**
-
-* Aplicação de diferentes algoritmos de escalonamento, escalonador round robin e um escalonador circular com prioridade, além de um escalonador simples sequencial.
+* Bloqueio por Espera de Outro Processo: O processo fica bloqueado enquanto o processo solicitado não tiver terminado sua execução.
 
 **3-Métricas**
 
-O SO foi programado para registrar métricas importantes, tanto do sistema, como dos processos criados, do sistema: tempo total de execução, tempo em que o sistema ficou ocioso, número de interrupções de cada tipo, e o número de preempções totais do sistema, para os processo as métricas obtidas foram do tempo de retorno, número de preempções do processo, tempo de cada estado, número de vezes em cada estado e o tempo de resposta.
+O sistema operacional foi programado para registrar métricas importantes, tanto do sistema quanto dos processos criados. Para o sistema, as métricas incluem: tempo total de execução, tempo em que o sistema ficou ocioso, número de interrupções de cada tipo e o número total de preempções. Para os processos, as métricas incluem: tempo de retorno, número de preempções do processo, tempo em cada estado, número de vezes em cada estado e o tempo de resposta. 
 
-Esses métodos foram executados em etapas, com validações periódicas para garantir a funcionalidade e explorar conceitos fundamentais dos sistemas operacionais.
-
-**4-Dados** 
+**4-Dados de Desempenho dos Escalonadores** 
 
 Os dados apresentados foram obtidos após a execução do sistema operacional com diferentes configurações de escalonadores. As simulações variaram o comportamento de escalonamento, alternando entre três estratégias:
 
@@ -93,14 +87,18 @@ Os dados apresentados foram obtidos após a execução do sistema operacional co
 * O algoritmo Round Robin é um dos mais comuns em sistemas operacionais modernos e é baseado na distribuição igualitária de tempo de CPU entre os processos.  
 * Cada processo recebe um **quantum de tempo** (intervalo de tempo fixo) para execução. Se o processo não terminar dentro desse tempo, ele é interrompido e retorna à fila de "pronto", sendo então escolhido o próximo processo na fila.  
 * O Round Robin é eficaz para sistemas onde a equidade na alocação de CPU é importante, garantindo que todos os processos recebam uma chance de execução de maneira cíclica.  
-* A principal desvantagem do Round Robin é que ele pode ser ineficiente para processos que exigem muito tempo de CPU, pois a troca frequente de contexto pode causar overhead.  
+* A principal desvantagem do Round Robin é que ele pode ser ineficiente para processos que exigem muito tempo de CPU, pois a troca frequente de contexto pode causar overhead.
+
 3. **Escalonador Circular com Prioridade**  
-* O escalonador Circular com Prioridade é uma variação do Round Robin que introduz uma priorização entre os processos. Em vez de simplesmente seguir a ordem da fila, cada processo tem uma prioridade associada.  
-* Os processos com menor prioridade são executados antes dos processos de maior prioridade. Caso haja processos com a mesma prioridade, o algoritmo ainda segue o comportamento Round Robin, dando uma fatia de tempo para cada processo dentro da sua classe de prioridade.  
+* O escalonador Circular com Prioridade é uma variação do Round Robin que introduz uma priorização entre os processos. Em vez de simplesmente seguir a ordem da fila, cada processo possui uma prioridade associada.  
+* Os processos com maior prioridade são executados antes dos processos de menor prioridade. Caso haja processos com a mesma prioridade, o algoritmo ainda segue o comportamento Round Robin, dando uma fatia de tempo para cada processo dentro da sua classe de prioridade.  
 * Esse algoritmo permite uma execução mais controlada de processos importantes, reduzindo a latência de processos críticos e permitindo uma maior flexibilidade na alocação de recursos.  
-* A desvantagem é que processos de baixa prioridade podem ser preteridos por longos períodos, dependendo da quantidade de processos de alta prioridade na fila.
+* A desvantagem é que processos de menor prioridade podem ser desconsiderados por longos períodos, dependendo da quantidade de processos de alta prioridade na fila.   
+* No contexto do nosso sistema operacional, os processos com menor número de prioridade são executados primeiro.
 
 Para comparar o desempenho de cada algoritmo, medimos o tempo médio de espera, tempo de resposta e taxa de utilização da CPU para diferentes cenários de carga de processos. Cada algoritmo teve um desempenho distinto dependendo da natureza dos processos no sistema, com o Round Robin sendo mais equilibrado em termos de tempo de resposta para todos os processos, o Circular com Prioridade se destacando para processos críticos, e o sequencial apresentando boa performance em cenários simples.
+
+A seguir, apresentamos os dados obtidos. Embora tenham sido registrados como se fossem em segundos (s), é importante observar que não representam segundos reais, mas sim o tempo de clock do processador.
 
 | Simulação com Escalonador Simples |  |
 | :---: | :---: |
@@ -191,7 +189,7 @@ O tempo de execução dos três escalonadores foi praticamente igual, apresentan
 * Escalonador Round Robin: 2228s de ociosidade, uma redução de 40,26% em relação ao Simples.  
 * Escalonador Circular com Prioridade: 1714s de ociosidade, representando uma redução adicional de 23,07% em relação ao Round Robin e 54,07% em relação ao Escalonador Simples.
 
-Esses números mostram que os algoritmos circulares, especialmente o Circular com Prioridade, conseguem aproveitar melhor os ciclos da CPU, reduzindo significativamente o tempo ocioso.
+Esses números mostram que os algoritmos circulares conseguem aproveitar melhor os ciclos da CPU, reduzindo significativamente o tempo ocioso. No nosso teste, o Circular com Prioridade se saiu melhor que o Round Robin, mas isso não ocorre sempre, sendo que o desempenho pode variar conforme o cenário.
 
 Ao analisarmos o comportamento de cada escalonador, percebemos que:
 
@@ -209,10 +207,7 @@ Essas características tornam os escalonadores circulares mais adequados para ce
 
 **6-Conclusões**
 
-Os escalonadores circulares, como o Round Robin e o Circular com Prioridade, se destacam por buscar um melhor aproveitamento do tempo da CPU. Eles tentam equilibrar a execução dos processos, de forma que todos tenham chances de progredir e os recursos sejam utilizados de forma eficiente. Já o Escalonador Simples, apesar de ser mais direto e menos custoso em termos de implementação, não consegue aproveitar tanto a capacidade da CPU, especialmente em sistemas com múltiplos processos aguardando recursos ou eventos.
-
-Os tempos de execução totais dos três escalonadores foram praticamente iguais. Porém, ao analisarmos o tempo em que a CPU ficou ociosa, percebemos a diferença entre os três escalonadores: Escalonador simples, Escalonador Round Robin e Escalonador Circula com Prioridade. No escalonador simples a ociosidade foi maior do que dos outros, assim não podendo aproveitar
-
+Os escalonadores circulares, como o Round Robin e o Circular com Prioridade, se destacam por buscar um melhor aproveitamento do tempo da CPU. Eles tentam equilibrar a execução dos processos, de forma que todos tenham chances de progredir e os recursos sejam utilizados de forma eficiente. Já o Escalonador Simples, apesar de ser mais direto e menos custoso em termos de implementação, não consegue aproveitar tanto a capacidade da CPU, especialmente em sistemas com múltiplos processos aguardando recursos ou eventos.  
    
 **7-Referências Bibliográficas**
 
