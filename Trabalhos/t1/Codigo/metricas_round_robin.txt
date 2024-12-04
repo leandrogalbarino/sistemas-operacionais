@@ -1,0 +1,58 @@
+------------------------------
+	Metricas do Sistema Operacional
+Numero de processos criados: 4
+Tempo total de execucao: 20340s
+Tempo total do sistema ocioso: 2228s
+Numero de interrupcoes Reset :1
+Numero de interrupcoes Erro de execucao :0
+Numero de interrupcoes Chamada de sistema :460
+Numero de interrupcoes E/S: relogio :675
+Numero de interrupcoes E/S: teclado :0
+Numero de interrupcoes E/S: console :0
+Numero de preempcoes: 44
+------------------------------
+	Metricas dos Processos
+Processo: 0
+Tempo retorno: 20340s
+Numero de preempcoes do processo: 1
+Estado EXECUTANDO numero de vezes: 4
+Estado EXECUTANDO tempo total: 773s
+Estado PRONTO numero de vezes: 4
+Estado PRONTO tempo total: 297s
+Estado BLOQUEADO numero de vezes: 2
+Estado BLOQUEADO tempo total: 19270s
+Tempo resposta: 74s
+------------------------------
+Processo: 1
+Tempo retorno: 16912s
+Numero de preempcoes do processo: 32
+Estado EXECUTANDO numero de vezes: 37
+Estado EXECUTANDO tempo total: 9554s
+Estado PRONTO numero de vezes: 37
+Estado PRONTO tempo total: 7083s
+Estado BLOQUEADO numero de vezes: 7
+Estado BLOQUEADO tempo total: 275s
+Tempo resposta: 191s
+------------------------------
+Processo: 2
+Tempo retorno: 11541s
+Numero de preempcoes do processo: 6
+Estado EXECUTANDO numero de vezes: 20
+Estado EXECUTANDO tempo total: 3895s
+Estado PRONTO numero de vezes: 20
+Estado PRONTO tempo total: 6773s
+Estado BLOQUEADO numero de vezes: 13
+Estado BLOQUEADO tempo total: 873s
+Tempo resposta: 338s
+------------------------------
+Processo: 3
+Tempo retorno: 19292s
+Numero de preempcoes do processo: 5
+Estado EXECUTANDO numero de vezes: 55
+Estado EXECUTANDO tempo total: 3890s
+Estado PRONTO numero de vezes: 55
+Estado PRONTO tempo total: 11412s
+Estado BLOQUEADO numero de vezes: 99
+Estado BLOQUEADO tempo total: 3990s
+Tempo resposta: 207s
+------------------------------
