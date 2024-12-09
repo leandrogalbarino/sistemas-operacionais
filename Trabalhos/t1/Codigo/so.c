@@ -22,7 +22,7 @@
 #define X 1
 #define INIT_TAM 4
 #define QUANTUM_PADRAO 10
-#define IRQ_N 
+#define IRQ_N 6
 
 #define ESCALONADOR 2
 #define ESCALONADOR_SEQUENCIAL 0
